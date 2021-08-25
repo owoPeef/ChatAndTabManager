@@ -1,6 +1,5 @@
 package ru.owopeef.owochat.utils;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.plugin.Plugin;
 import ru.owopeef.owochat.Main;
@@ -13,9 +12,10 @@ import java.util.Objects;
 public class Config
 {
     public static Plugin plugin = Main.getPlugin(Main.class);
+    public static String pluginName = plugin.getDescription().getName();
     public static void loadConfig()
     {
-        File currentFile = new File(System.getProperty("user.dir") + "\\plugins\\owoChat\\config.yml");
+        File currentFile = new File(System.getProperty("user.dir") + "\\plugins\\"+pluginName+"\\config.yml");
         if (!currentFile.exists())
         {
             plugin.getConfig().options().copyDefaults(true);
@@ -24,7 +24,7 @@ public class Config
     }
 
     public static void reloadConfig() throws IOException, InvalidConfigurationException {
-        File config = new File(System.getProperty("user.dir") + "\\plugins\\owoMurderMystery\\config.yml");
+        File config = new File(System.getProperty("user.dir") + "\\plugins\\"+pluginName+"\\config.yml");
         plugin.getConfig().load(config);
     }
 
@@ -45,6 +45,15 @@ public class Config
     public static String readConfigString(String path, String parent1, String parent2) throws IOException, InvalidConfigurationException {
         reloadConfig();
         return plugin.getConfig().getString(path + "." + parent1 + "." + parent2);
+    }
+
+    public static String readConfig(String path) {
+        try
+        {
+            reloadConfig();
+        }
+        catch (Exception ignored) {}
+        return plugin.getConfig().get(path).toString();
     }
 
     public static String readConfig(String path, String parent1) throws IOException, InvalidConfigurationException {
@@ -74,5 +83,14 @@ public class Config
         }
         catch (Exception ignored) {}
         return plugin.getConfig().getBoolean(path);
+    }
+
+    public static Integer readConfigInteger(String path) {
+        try
+        {
+            reloadConfig();
+        }
+        catch (Exception ignored) {}
+        return plugin.getConfig().getInt(path);
     }
 }

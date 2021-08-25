@@ -1,1 +1,8 @@
+# Если isGlobalEnabled == false, то формат чата будет настраиваться через "chat"
+chat: "{player_nick}: {player_message}"
+globalChat: "[G] {player_nick}: {player_message}"
+localChat: "[L] {player_nick}: {player_message}"
+ifNoOneHeardTheMessage: "Ваше сообщение никто не услышал"
+globalPrefix: "!"
+localRadius: 100
 isGlobalEnabled: false
