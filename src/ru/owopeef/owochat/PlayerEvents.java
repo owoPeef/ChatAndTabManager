@@ -21,7 +21,7 @@ public class PlayerEvents implements Listener
         isGlobalEnabled = Config.readConfigBoolean("isGlobalEnabled");
         String player_message = event.getMessage();
         Player player = event.getPlayer();
-        String player_username = player.getName();
+        String player_username = player.getDisplayName();
         String prefix = Config.readConfig("globalPrefix");
         String message;
         event.setCancelled(true);
