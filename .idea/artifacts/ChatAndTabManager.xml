@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ChatAndTabManager">
+    <output-path>$PROJECT_DIR$/../../../MyFiles/_server/_PluginsBuilds</output-path>
+    <root id="archive" name="ChatAndTabManager.jar">
+      <element id="module-output" name="owoChat" />
+      <element id="dir-copy" path="$PROJECT_DIR$/resources" />
+    </root>
+  </artifact>
+</component>

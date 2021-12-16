@@ -1,7 +1,11 @@
+# TAB
+playerTabFormat: "{prefix}{player_nick}"
+# CHAT
+joinMessage: "{prefix}{player_nick} &r&6зашёл в лобби!"
 # Если isGlobalEnabled == false, то формат чата будет настраиваться через "chat"
-chat: "{player_nick}: {player_message}"
-globalChat: "[G] {player_nick}: {player_message}"
-localChat: "[L] {player_nick}: {player_message}"
+chat: "{prefix}{player_nick}{suffix}: {player_message}"
+globalChat: "[G] {prefix}{player_nick}{suffix}: {player_message}"
+localChat: "[L] {prefix}{player_nick}{suffix}: {player_message}"
 ifNoOneHeardTheMessage: "Ваше сообщение никто не услышал"
 globalPrefix: "!"
 localRadius: 100

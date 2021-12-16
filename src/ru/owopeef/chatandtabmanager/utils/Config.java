@@ -1,8 +1,8 @@
-package ru.owopeef.owochat.utils;
+package ru.owopeef.chatandtabmanager.utils;
 
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.plugin.Plugin;
-import ru.owopeef.owochat.Main;
+import ru.owopeef.chatandtabmanager.Main;
 
 import java.io.File;
 import java.io.IOException;
