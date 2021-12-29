@@ -18,6 +18,7 @@ import ru.tehkode.permissions.bukkit.PermissionsEx;
 import ru.tehkode.permissions.events.PermissionEntityEvent;
 
 import java.util.List;
+import java.util.Objects;
 
 public class PlayerEvents implements Listener
 {
@@ -36,22 +37,22 @@ public class PlayerEvents implements Listener
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         PermissionUser user = PermissionsEx.getUser(event.getPlayer());
+        if (Objects.equals(user.getOption("default"), "false")) {
+            String joinMessage = Config.readConfig("joinMessage");
 
-        String joinMessage = Config.readConfig("joinMessage");
+            TextComponent message = new TextComponent("{prefix}{player_nick}".replace("{prefix}", user.getPrefix().replace("&", "§")).replace("{player_nick}", event.getPlayer().getName()));
+            message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/profile {player_nick}".replace("{player_nick}", event.getPlayer().getName())));
 
-        TextComponent message = new TextComponent("{prefix}{player_nick}".replace("{prefix}", user.getPrefix().replace("&", "§")).replace("{player_nick}", event.getPlayer().getName()));
-        message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/profile {player_nick}".replace("{player_nick}", event.getPlayer().getName())));
+            String first_line = "{prefix}{player_nick}".replace("{prefix}", user.getPrefix().replace("&", "§")).replace("{player_nick}", event.getPlayer().getName());
+            String second_line = "§7Уровень: §60".replace("{prefix}", user.getPrefix().replace("&", "§")).replace("{player_nick}", event.getPlayer().getName());
+            String txt = first_line + "\n" + second_line;
 
-        String first_line = "{prefix}{player_nick}".replace("{prefix}", user.getPrefix().replace("&", "§")).replace("{player_nick}", event.getPlayer().getName());
-        String second_line = "§7Уровень: §60".replace("{prefix}", user.getPrefix().replace("&", "§")).replace("{player_nick}", event.getPlayer().getName());
-        String txt = first_line + "\n" + second_line;
+            message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(txt).create()));
 
-        message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(txt).create()));
-
-        TextComponent text = new TextComponent(joinMessage.replace("&", "§").replace("{suffix}", user.getSuffix().replace("&", "§")).replace("{prefix}", "").replace("{player_nick}", ""));
-        Bukkit.spigot().broadcast(message, text);
+            TextComponent text = new TextComponent(joinMessage.replace("&", "§").replace("{suffix}", user.getSuffix().replace("&", "§")).replace("{prefix}", "").replace("{player_nick}", ""));
+            Bukkit.spigot().broadcast(message, text);
+        }
         event.setJoinMessage("");
-
         String format = Config.readConfig("playerTabFormat");
         format = format.replace("&", "§").replace("{suffix}", user.getSuffix().replace("&", "§")).replace("{prefix}", user.getPrefix().replace("&", "§")).replace("{player_nick}", event.getPlayer().getName());
         event.getPlayer().setPlayerListName(format);
