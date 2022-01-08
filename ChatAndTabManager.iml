@@ -19,5 +19,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="PermissionsEx-1.23.4" level="project" />
     <orderEntry type="library" name="spigot-1.8" level="project" />
+    <orderEntry type="library" name="PlaceholderAPI-2.11.1" level="project" />
   </component>
 </module>
