@@ -1,6 +1,8 @@
 name: ChatAndTabManager
 main: ru.owopeef.chatandtabmanager.Main
 version: 1.0
+author: owoPeef
+website: www.github.com/owoPeef/ChatAndTabManager
 permissions:
   chatandtabmanager.smiles_chat:
     description: Change symbols to smiles in chat.

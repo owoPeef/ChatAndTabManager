@@ -44,11 +44,11 @@ public class PlayerEvents implements Listener
 
             TextComponent msg = new TextComponent(Messages.formatMessage(joinMessage, true, user));
             int clickableType = Config.readConfigInteger("clickableType");
-            if (clickableType == 0) {
+            if (clickableType == 1) {
                 msg.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, Messages.formatMessage(Config.readConfig("clickableValue"), user)));
-            } else if (clickableType == 1) {
-                msg.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, Messages.formatMessage(Config.readConfig("clickableValue"), user)));
             } else if (clickableType == 2) {
+                msg.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, Messages.formatMessage(Config.readConfig("clickableValue"), user)));
+            } else if (clickableType == 3) {
                 msg.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, Messages.formatMessage(Config.readConfig("clickableValue"), user)));
             }
 
@@ -57,8 +57,16 @@ public class PlayerEvents implements Listener
             }
 
             Bukkit.spigot().broadcast(msg);
+            event.setJoinMessage("");
         }
-        event.setJoinMessage("");
+        if (Config.readConfigBoolean("isChatHover")) {
+            TextComponent msg = new TextComponent(Messages.formatMessage(event.getJoinMessage(), true, user));
+
+            msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Messages.formatMessage(Config.readConfig("hoverMessage"), user)).create()));
+
+            Bukkit.spigot().broadcast(msg);
+            event.setJoinMessage("");
+        }
         event.getPlayer().setPlayerListName(Messages.formatMessage(Config.readConfig("playerTabFormat"), user));
     }
     @EventHandler
@@ -99,7 +107,15 @@ public class PlayerEvents implements Listener
 
                 Bukkit.spigot().broadcast(msg);
             } else {
-                plugin.getServer().broadcastMessage(Messages.formatMessage(format, player_message, user));
+                if (Config.readConfigBoolean("isChatHover")) {
+                    TextComponent msg = new TextComponent(Messages.formatMessage(format, player_message, user));
+
+                    msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Messages.formatMessage(Config.readConfig("hoverMessage"), user)).create()));
+
+                    Bukkit.spigot().broadcast(msg);
+                } else {
+                    plugin.getServer().broadcastMessage(Messages.formatMessage(format, player_message, user));
+                }
             }
         }
         else
@@ -124,7 +140,15 @@ public class PlayerEvents implements Listener
 
                     Bukkit.spigot().broadcast(msg);
                 } else {
-                    plugin.getServer().broadcastMessage(Messages.formatMessage(Config.readConfig("globalChat"), player_message, user));
+                    if (Config.readConfigBoolean("isChatHover")) {
+                        TextComponent msg = new TextComponent(Messages.formatMessage(Config.readConfig("globalChat"), player_message, user));
+
+                        msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Messages.formatMessage(Config.readConfig("hoverMessage"), user)).create()));
+
+                        Bukkit.spigot().broadcast(msg);
+                    } else {
+                        plugin.getServer().broadcastMessage(Messages.formatMessage(Config.readConfig("globalChat"), player_message, user));
+                    }
                 }
             }
             else

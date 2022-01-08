@@ -9,7 +9,7 @@ globalPrefix: "!"
 localRadius: 100
 isGlobalEnabled: false
 isChatClickable: true
-clickableType: 0
+clickableType: 1
 clickableValue: "/profile {player_nickname}"
 isChatHover: true
 hoverMessage: "{player_prefix}{player_nickname}\n§7Уровень: §60"
