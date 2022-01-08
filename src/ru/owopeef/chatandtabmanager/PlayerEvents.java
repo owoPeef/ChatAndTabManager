@@ -130,7 +130,7 @@ public class PlayerEvents implements Listener
                 }
 
                 if (Config.readConfigBoolean("isChatHover")) {
-                    msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Messages.formatMessage(Config.readConfig("hoverMessage"), user)).create()));
+                    msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Messages.formatMessage(Config.readConfig("hoverMessage"), true, user)).create()));
                 }
 
                 Bukkit.spigot().broadcast(msg);
@@ -138,7 +138,7 @@ public class PlayerEvents implements Listener
                 if (Config.readConfigBoolean("isChatHover")) {
                     TextComponent msg = new TextComponent(Messages.formatMessage(format, player_message, user));
 
-                    msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Messages.formatMessage(Config.readConfig("hoverMessage"), user)).create()));
+                    msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Messages.formatMessage(Config.readConfig("hoverMessage"), true, user)).create()));
 
                     Bukkit.spigot().broadcast(msg);
                 } else {
@@ -163,7 +163,7 @@ public class PlayerEvents implements Listener
                     }
 
                     if (Config.readConfigBoolean("isChatHover")) {
-                        msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Messages.formatMessage(Config.readConfig("hoverMessage"), user)).create()));
+                        msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Messages.formatMessage(Config.readConfig("hoverMessage"), true, user)).create()));
                     }
 
                     Bukkit.spigot().broadcast(msg);
@@ -171,7 +171,7 @@ public class PlayerEvents implements Listener
                     if (Config.readConfigBoolean("isChatHover")) {
                         TextComponent msg = new TextComponent(Messages.formatMessage(Config.readConfig("globalChat"), player_message, user));
 
-                        msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Messages.formatMessage(Config.readConfig("hoverMessage"), user)).create()));
+                        msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Messages.formatMessage(Config.readConfig("hoverMessage"), true, user)).create()));
 
                         Bukkit.spigot().broadcast(msg);
                     } else {
