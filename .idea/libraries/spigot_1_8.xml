@@ -1,11 +1,11 @@
 <component name="libraryTable">
   <library name="spigot-1.8">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../../../MyFiles/_server/MainLobby/spigot-1.8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../MyFiles/___DEV/Minecraft/libs/cores/1.8/spigot-1.8.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>
-      <root url="jar://$PROJECT_DIR$/../../../MyFiles/_server/MainLobby/spigot-1.8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../MyFiles/___DEV/Minecraft/libs/cores/1.8/spigot-1.8.jar!/" />
     </SOURCES>
   </library>
 </component>

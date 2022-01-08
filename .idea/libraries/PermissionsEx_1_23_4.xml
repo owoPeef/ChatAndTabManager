@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="PermissionsEx-1.23.4">
     <CLASSES>
-      <root url="jar://$USER_HOME$/Desktop/IntellIJ/libs/plugins/1.8/PermissionsEx-1.23.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../../MyFiles/___DEV/Minecraft/libs/plugins/1.8/PermissionsEx-1.23.4.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
