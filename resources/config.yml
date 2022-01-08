@@ -10,3 +10,4 @@ ifNoOneHeardTheMessage: "Ваше сообщение никто не услыш�
 globalPrefix: "!"
 localRadius: 100
 isGlobalEnabled: false
+isIngameChat: false

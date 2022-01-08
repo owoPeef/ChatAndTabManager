@@ -1,3 +1,7 @@
 name: ChatAndTabManager
 main: ru.owopeef.chatandtabmanager.Main
 version: 1.0
+permissions:
+  chatandtabmanager.smiles_chat:
+    description: Change symbols to smiles in chat.
+    default: op

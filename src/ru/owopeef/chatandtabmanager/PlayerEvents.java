@@ -5,6 +5,7 @@ import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -37,7 +38,7 @@ public class PlayerEvents implements Listener
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         PermissionUser user = PermissionsEx.getUser(event.getPlayer());
-        if (Objects.equals(user.getOption("default"), "false")) {
+        if (Objects.equals(user.getOption("default"), "false") && !Config.readConfigBoolean("isIngameChat")) {
             String joinMessage = Config.readConfig("joinMessage");
 
             TextComponent message = new TextComponent("{prefix}{player_nick}".replace("{prefix}", user.getPrefix().replace("&", "§")).replace("{player_nick}", event.getPlayer().getName()));
@@ -63,6 +64,13 @@ public class PlayerEvents implements Listener
         boolean playerHear = false;
         isGlobalEnabled = Config.readConfigBoolean("isGlobalEnabled");
         String player_message = event.getMessage();
+        if (user.has("chatandtabmanager.smiles_chat")) {
+            player_message = player_message.replace("<3", ChatColor.RED + "❤");
+            player_message = player_message.replace(":))", ChatColor.GOLD + "(◕ ‿ ◕)つ");
+            player_message = player_message.replace("->", "→");
+            player_message = player_message.replace("<-", "←");
+            player_message = player_message.replace("o/", "(◠ ◡ ◠)╱");
+        }
         Player player = event.getPlayer();
         String player_username = player.getDisplayName();
         String prefix = Config.readConfig("globalPrefix");
