@@ -13,7 +13,7 @@
 * [Конфигурация артефакта](https://www.jetbrains.com/help/idea/working-with-artifacts.html#configure_artifact)
 ## Конфигурация
 Изначальный вид конфигурационного файла:
-```
+```yaml
 playerTabFormat: "{player_prefix}{player_nickname}"
 joinMessage: "{player_prefix}{player_nickname} &r&6зашёл в лобби!"
 joinNotifications: true
