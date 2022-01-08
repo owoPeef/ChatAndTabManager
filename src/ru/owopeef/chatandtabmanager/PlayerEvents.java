@@ -14,6 +14,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.Plugin;
 import ru.owopeef.chatandtabmanager.utils.Config;
+import ru.owopeef.chatandtabmanager.utils.Messages;
 import ru.tehkode.permissions.PermissionUser;
 import ru.tehkode.permissions.bukkit.PermissionsEx;
 import ru.tehkode.permissions.events.PermissionEntityEvent;
@@ -38,25 +39,27 @@ public class PlayerEvents implements Listener
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         PermissionUser user = PermissionsEx.getUser(event.getPlayer());
-        if (Objects.equals(user.getOption("default"), "false") && !Config.readConfigBoolean("isIngameChat")) {
+        if (Objects.equals(user.getOption("default"), "false") && Config.readConfigBoolean("joinNotifications")) {
             String joinMessage = Config.readConfig("joinMessage");
 
-            TextComponent message = new TextComponent("{prefix}{player_nick}".replace("{prefix}", user.getPrefix().replace("&", "§")).replace("{player_nick}", event.getPlayer().getName()));
-            message.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/profile {player_nick}".replace("{player_nick}", event.getPlayer().getName())));
+            TextComponent msg = new TextComponent(Messages.formatMessage(joinMessage, true, user));
+            int clickableType = Config.readConfigInteger("clickableType");
+            if (clickableType == 0) {
+                msg.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, Messages.formatMessage(Config.readConfig("clickableValue"), user)));
+            } else if (clickableType == 1) {
+                msg.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, Messages.formatMessage(Config.readConfig("clickableValue"), user)));
+            } else if (clickableType == 2) {
+                msg.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, Messages.formatMessage(Config.readConfig("clickableValue"), user)));
+            }
 
-            String first_line = "{prefix}{player_nick}".replace("{prefix}", user.getPrefix().replace("&", "§")).replace("{player_nick}", event.getPlayer().getName());
-            String second_line = "§7Уровень: §60".replace("{prefix}", user.getPrefix().replace("&", "§")).replace("{player_nick}", event.getPlayer().getName());
-            String txt = first_line + "\n" + second_line;
+            if (Config.readConfigBoolean("isChatHover")) {
+                msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Messages.formatMessage(Config.readConfig("hoverMessage"), user)).create()));
+            }
 
-            message.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(txt).create()));
-
-            TextComponent text = new TextComponent(joinMessage.replace("&", "§").replace("{suffix}", user.getSuffix().replace("&", "§")).replace("{prefix}", "").replace("{player_nick}", ""));
-            Bukkit.spigot().broadcast(message, text);
+            Bukkit.spigot().broadcast(msg);
         }
         event.setJoinMessage("");
-        String format = Config.readConfig("playerTabFormat");
-        format = format.replace("&", "§").replace("{suffix}", user.getSuffix().replace("&", "§")).replace("{prefix}", user.getPrefix().replace("&", "§")).replace("{player_nick}", event.getPlayer().getName());
-        event.getPlayer().setPlayerListName(format);
+        event.getPlayer().setPlayerListName(Messages.formatMessage(Config.readConfig("playerTabFormat"), user));
     }
     @EventHandler
     public void onChatMessage(AsyncPlayerChatEvent event) {
@@ -72,31 +75,63 @@ public class PlayerEvents implements Listener
             player_message = player_message.replace("o/", "(◠ ◡ ◠)╱");
         }
         Player player = event.getPlayer();
-        String player_username = player.getDisplayName();
         String prefix = Config.readConfig("globalPrefix");
         String message;
         event.setCancelled(true);
+        boolean isChatClickable = Config.readConfigBoolean("isChatClickable");
         if (!isGlobalEnabled)
         {
             String format = Config.readConfig("chat");
-            message = format.replace("&", "§").replace("{suffix}", user.getSuffix().replace("&", "§")).replace("{prefix}", user.getPrefix().replace("&", "§")).replace("{player_message}", player_message).replace("{player_nick}", player_username);
-            plugin.getServer().broadcastMessage(message);
+            if (isChatClickable) {
+                TextComponent msg = new TextComponent(Messages.formatMessage(format, player_message, user));
+                int clickableType = Config.readConfigInteger("clickableType");
+                if (clickableType == 0) {
+                    msg.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, Messages.formatMessage(Config.readConfig("clickableValue"), user)));
+                } else if (clickableType == 1) {
+                    msg.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, Messages.formatMessage(Config.readConfig("clickableValue"), user)));
+                } else if (clickableType == 2) {
+                    msg.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, Messages.formatMessage(Config.readConfig("clickableValue"), user)));
+                }
+
+                if (Config.readConfigBoolean("isChatHover")) {
+                    msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Messages.formatMessage(Config.readConfig("hoverMessage"), user)).create()));
+                }
+
+                Bukkit.spigot().broadcast(msg);
+            } else {
+                plugin.getServer().broadcastMessage(Messages.formatMessage(format, player_message, user));
+            }
         }
         else
         {
             if (player_message.startsWith(prefix))
             {
                 player_message = player_message.substring(prefix.length());
-                String format = Config.readConfig("globalChat");
-                message = format.replace("&", "§").replace("{suffix}", user.getSuffix().replace("&", "§")).replace("{prefix}", user.getPrefix().replace("&", "§")).replace("{player_message}", player_message).replace("{player_nick}", player_username);
-                plugin.getServer().broadcastMessage(message);
+                if (Config.readConfigBoolean("isChatClickable")) {
+                    TextComponent msg = new TextComponent(Messages.formatMessage(Config.readConfig("globalChat"), player_message, user));
+                    int clickableType = Config.readConfigInteger("clickableType");
+                    if (clickableType == 0) {
+                        msg.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, Messages.formatMessage(Config.readConfig("clickableValue"), user)));
+                    } else if (clickableType == 1) {
+                        msg.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_FILE, Messages.formatMessage(Config.readConfig("clickableValue"), user)));
+                    } else if (clickableType == 2) {
+                        msg.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, Messages.formatMessage(Config.readConfig("clickableValue"), user)));
+                    }
+
+                    if (Config.readConfigBoolean("isChatHover")) {
+                        msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(Messages.formatMessage(Config.readConfig("hoverMessage"), user)).create()));
+                    }
+
+                    Bukkit.spigot().broadcast(msg);
+                } else {
+                    plugin.getServer().broadcastMessage(Messages.formatMessage(Config.readConfig("globalChat"), player_message, user));
+                }
             }
             else
             {
-                String format = Config.readConfig("localChat");
                 String noOneHeard = Config.readConfig("ifNoOneHeardTheMessage");
-                message = format.replace("&", "§").replace("{suffix}", user.getSuffix().replace("&", "§")).replace("{prefix}", user.getPrefix().replace("&", "§")).replace("{player_message}", player_message).replace("{player_nick}", player_username);
-                List<Player> players = plugin.getServer().getWorld("world").getPlayers();
+                message = Messages.formatMessage(Config.readConfig("localChat"), player_message, user);
+                List<Player> players = plugin.getServer().getWorlds().get(0).getPlayers();
                 if (players.size() == 1)
                 {
                     player.sendMessage(noOneHeard);
@@ -106,7 +141,6 @@ public class PlayerEvents implements Listener
                     int a = 0;
                     while (a != players.size())
                     {
-                        // Current player
                         Player currentPlayer = players.get(a);
                         Location currentLoc = currentPlayer.getLocation();
                         int currentPlayerX = currentLoc.getBlockX();
