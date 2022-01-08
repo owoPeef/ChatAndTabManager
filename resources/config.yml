@@ -12,4 +12,4 @@ isChatClickable: true
 clickableType: 1
 clickableValue: "/profile {player_nickname}"
 isChatHover: true
-hoverMessage: "{player_prefix}{player_nickname}\n§7Уровень: §60"
+hoverMessage: "{player_prefix}{player_nickname}\n&7Уровень: &60"
