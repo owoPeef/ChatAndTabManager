@@ -4,6 +4,9 @@ version: 1.0
 author: owoPeef
 website: www.github.com/owoPeef/ChatAndTabManager
 permissions:
+  chatandtabmanager.join_notify:
+    description: Send chat notify when player is join.
+    default: op
   chatandtabmanager.smiles_chat:
     description: Change symbols to smiles in chat.
     default: op
