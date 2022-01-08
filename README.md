@@ -7,6 +7,7 @@
 Для начала работы с плагином вам необходимы две библиотеки:
 * [Spigot-1.8.8](https://getbukkit.org/download/spigot)
 * [PermissionsEx-1.23.4](https://github.com/PEXPlugins/PermissionsEx/releases/tag/STABLE-1.23.4)
+* [PlaceholderAPI-2.11.1.jar](https://github.com/PlaceholderAPI/PlaceholderAPI/releases/tag/2.11.1)
 
 Инструкции по IDE:
 * [Как добавить библиотеку в свой проект](https://www.jetbrains.com/help/idea/library.html#define-a-project-library)
