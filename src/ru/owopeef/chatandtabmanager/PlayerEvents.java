@@ -47,7 +47,6 @@ public class PlayerEvents implements Listener
 
         if (hasJoinPermission && joinNotify && !isChatClickable && !isChatHover) {
             event.setJoinMessage(Messages.formatMessage(joinMessage, true, user));
-            System.out.println(1);
         }
 
         if (hasJoinPermission && joinNotify && isChatClickable && !isChatHover) {
@@ -63,7 +62,6 @@ public class PlayerEvents implements Listener
 
             Bukkit.spigot().broadcast(msg);
             event.setJoinMessage("");
-            System.out.println(2);
         }
 
         if (hasJoinPermission && joinNotify && isChatClickable && isChatHover) {
@@ -81,7 +79,6 @@ public class PlayerEvents implements Listener
 
             Bukkit.spigot().broadcast(msg);
             event.setJoinMessage("");
-            System.out.println(3);
         }
 
         if (hasJoinPermission && joinNotify && !isChatClickable && isChatHover) {
@@ -91,12 +88,10 @@ public class PlayerEvents implements Listener
 
             Bukkit.spigot().broadcast(msg);
             event.setJoinMessage("");
-            System.out.println(4);
         }
 
         if (!hasJoinPermission && joinNotify) {
             event.setJoinMessage("");
-            System.out.println(5);
         }
 
         event.getPlayer().setPlayerListName(Messages.formatMessage(Config.readConfig("playerTabFormat"), user));
