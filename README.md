@@ -17,7 +17,8 @@
 ```yaml
 playerTabFormat: "{player_prefix}{player_nickname}"
 joinMessage: "{player_prefix}{player_nickname} &r&6зашёл в лобби!"
-joinNotifications: true
+joinNotificationsDefault: true
+joinNotificationsEnabled: true
 chat: "{player_prefix}{player_nickname}{player_suffix}: {player_message}"
 globalChat: "[G] {player_prefix}{player_nickname}{player_suffix}: {player_message}"
 localChat: "[L] {player_prefix}{player_nickname}{player_suffix}: {player_message}"
@@ -26,10 +27,10 @@ globalPrefix: "!"
 localRadius: 100
 isGlobalEnabled: false
 isChatClickable: true
-clickableType: 0
+clickableType: 1
 clickableValue: "/profile {player_nickname}"
 isChatHover: true
-hoverMessage: "{player_prefix}{player_nickname}\n§7Уровень: §60"
+hoverMessage: "{player_prefix}{player_nickname}\n&7Уровень: &60"
 ```
 
 Основные переменные в конфиге:
@@ -41,7 +42,8 @@ hoverMessage: "{player_prefix}{player_nickname}\n§7Уровень: §60"
 Теперь-же пройдёмся по строкам:
 * `playerTabFormat` - строка, формат отображения игрока в табе, устанавливается при заходе на сервер
 * `joinMessage` - строка, формат сообщения о заходе игрока на сервер
-* `joinNotifications` - логическое выражение. **Примечание: если значение равно `false`, то при заходе будет вывод стандартного сообщения о входе**
+* `joinNotificationsDefault` - логическое выражение. **Примечание: если значение равно `true`, то каждый зашедший игрок будет отображаться в чате**
+* `joinNotificationsEnabled` - логическое выражение. **Примечание: если значение равно `false`, то при заходе будет вывод стандартного сообщения о входе**
 * `chat` - строка, формат сообщения при отправке в чат. **Примечание: если значение `isGlobalEnabled` равно `true`, то чат будет форматироваться по значению этого параметра**
 * `globalChat` - строка, формат сообщения при отправке в глобальный чат. **Примечание: работает, если значение `isGlobalEnabled` равно `true`, и перед сообщением стоит установленный вами `globalPrefix`**
 * `localChat` - строка, формат сообщения при отправке в локальный чат. **Примечание: работает, если значение `isGlobalEnabled` равно `true`, перед сообщением не стоит установленный вами `globalPrefix`, и если в установленном вами радиусе `localRadius` есть хоть два игрока**
