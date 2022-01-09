@@ -3,7 +3,15 @@ main: ru.owopeef.chatandtabmanager.Main
 version: 1.0
 author: owoPeef
 website: www.github.com/owoPeef/ChatAndTabManager
+commands:
+  chatandtabmanager:
+    description: Chat and Tab manager command.
+    usage: /<command>
+    aliases: [catm, cntm, chat_and_tab_manager, cnt_manager, chat_manager]
 permissions:
+  chatandtabmanager.config_reload:
+    description: Reload plugin config.
+    default: op
   chatandtabmanager.join_notify:
     description: Send chat notify when player is join.
     default: op
