@@ -1,6 +1,7 @@
 playerTabFormat: "{player_prefix}{player_nickname}"
 joinMessage: "{player_prefix}{player_nickname} &r&6зашёл в лобби!"
-joinNotifications: true
+joinNotificationsDefault: true
+joinNotificationsEnabled: true
 chat: "{player_prefix}{player_nickname}{player_suffix}: {player_message}"
 globalChat: "[G] {player_prefix}{player_nickname}{player_suffix}: {player_message}"
 localChat: "[L] {player_prefix}{player_nickname}{player_suffix}: {player_message}"
